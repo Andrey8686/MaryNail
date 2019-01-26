@@ -1,0 +1,59 @@
+﻿@using Admin.Models
+@model IEnumerable<NewModel>
+@{
+    ViewBag.Title = "Новости";
+}
+
+<h2 class="page-title">@ViewBag.Title</h2>
+
+<hr />
+
+<div class="d-flex justify-content-between">
+    <div>
+        @Ajax.ActionLink(" ", "Create", "News", null, new AjaxOptions { UpdateTargetId = "action-body" }, new { @class = "icon-plus btn btn-outline-success" })
+    </div>
+    <div>
+        @Html.Action("Search")
+    </div>
+</div>
+
+
+
+
+@if (Model.Any())
+{
+    <table class="table table-hover table-bordered mt-3 mb-3">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Краткое описание</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="align-top">@item.Name</td>
+                <td class="align-top">@item.Description</td>
+                <td class="align-top text-right" width="1">
+                    <div class="d-inline-flex">
+                        <div class="pr-1">
+                            @Ajax.ActionLink(" ", "Edit", "News", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "action-body"}, new {@class = "btn btn-outline-primary btn-sm icon-edit", title = "Редактировать"})
+                        </div>
+                        <div class="pr-1">
+                            @Ajax.ActionLink(" ", "ChangeVisibility", "News", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "action-body"}, item.IsActive ? new {@class = "btn btn-outline-dark btn-sm icon-eye-show", title = "Скрыть"} : new {@class = "btn btn-outline-secondary btn-sm icon-eye-hide", title = "Показать"})
+                        </div>
+                        <div>
+                            @Ajax.ActionLink(" ", "Delete", "News", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "action-body", Confirm = $"Удаление '{item.Name}' \n\nВ действительно хотите удалить эту запись?" }, new { @class = "btn btn-outline-danger btn-sm icon-remove", title = "Удалить" })
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    @Ajax.ActionLink(" ", "Create", "News", null, new AjaxOptions { UpdateTargetId = "action-body" }, new { @class = "icon-plus btn btn-outline-success" })
+}

@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+
+
+<div class="min-h-100">
+    <div class="row m-0">
+        <div class="col p-0">
+            
+            <nav class="navbar navbar-expand navbar-fixed-top">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Модули
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Типы дизайнов", "Index", "NailDesignType", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Дизайны", "Index", "NailDesign", null, new { @class = "dropdown-item" })
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Типы сервисов", "Index", "ProductType", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Микросервисы", "Index", "Service", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Мои работы", "Index", "Product", null, new { @class = "dropdown-item" })
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            @Html.ActionLink("Новости", "Index", "News", null, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </nav>
+
+        </div>
+    </div>
+    <div class="row m-0 h-100">
+        <div class="col-2 p-0">
+            
+            <ul class="menu-left">
+                <li>
+                    <a href="#">Aontent</a>
+                </li>
+                <li>
+                    <a href="#">Content</a>
+                </li>
+                <li class="active">
+                    <a href="#">Bontent</a>
+                    <ul>
+                        <li>
+                            <a href="#">content2</a>
+                        </li>
+                        <li>
+                            <a href="#">content2</a>
+                        </li>
+                        <li>
+                            <a href="#">content2</a>
+                        </li>
+                        <li>
+                            <a href="#">content2</a>
+                        </li>
+                        <li>
+                            <a href="#">content2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">content</a>
+                </li>
+                <li>
+                    <a href="#">content</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-10 page-body pb-5">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</body>
+</html>

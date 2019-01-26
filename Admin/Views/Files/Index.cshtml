@@ -1,0 +1,24 @@
+﻿@using Admin.Code.Utils
+@model Admin.Models.FileModel
+@{
+    Layout = null;
+    var guidCode = Guid.NewGuid();
+}
+
+
+<div class="upload-block-@guidCode">
+    <img class="img-fluid img-thumbnail" src="@Url.Action("GetImage", "Files", Model)" />
+    <div class="ub-drop-area"> Переместите сюда ваш файл...</div>
+    <label class="btn btn-info ub-btn-file" for="ub-file-@guidCode">Выбрать файл...</label>
+    <input id="ub-file-@guidCode" class="ub-file invisible" name="file" type="file" />
+</div>
+
+<script type="text/javascript">
+    $(function($) {
+        $(".upload-block-@guidCode").UploadFiles({
+            url: '@Url.Action("Upload", "Files", Model)',
+            json: @Html.Raw(ViewBag.json)
+        });
+        ShowError('@ViewBag.Error');
+    });
+</script>

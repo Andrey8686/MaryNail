@@ -1,0 +1,69 @@
+﻿@using Admin.Code.Utils
+@using Admin.Models
+@model Admin.Models.FileModel
+@{
+    Layout = null;
+    var guidCode = Guid.NewGuid();
+}
+
+
+<div class="upload-block-@guidCode">
+
+
+
+
+
+
+    <div class="ub-drop-area"> Переместите сюда ваш файл...</div>
+    <label class="btn btn-info ub-btn-file" for="ub-file-@guidCode">Выбрать файл...</label>
+    <input id="ub-file-@guidCode" class="ub-file invisible" name="file" type="file" multiple="" />
+
+    @if (Model.FileUrl != null)
+    {
+        for (var i = 0; i < Model.FileUrl.Length; i++)
+        {
+            var ext = Model.FileUrl[i].Split('.').Last().ToLower();
+
+            if (new List<string>() { "jpg", "jpeg", "png", "gif" }.Contains(ext))
+            {
+                var fileName = Model.FileUrl[i].Split('\\').Last();
+                var pathForView = "/Files/GetFile/News/" + Model.Id + "/" + Model.FileUrl[i].Split('\\').Last() + "/view";
+
+                
+                <div class="d-flex mt-1">
+                    <div class="col border border-right-0 p-1">
+                        <img class="img-fluid m-0 border" src="@pathForView" alt="" />
+                    </div>
+                    <div class="col-10 d-flex flex-column border border-left-0 p-1">
+                        <div>
+                            <input class="form-control form-control-sm" type="text" value="@pathForView" />
+                        </div>
+                        <div class="mt-1">
+                            <a class="btn btn-primary btn-sm" href="">скачать</a>
+                            <a class="btn btn-danger btn-sm" href="#" onclick="return SendPostRequest('@Url.Action("DeleteFileForItem", "Files")', '#file-list', {Id: '@Model.Id', AppDataDir: 'News', FileName: '@fileName'}, 'Вы уверены?')">
+                                <i class="icon-remove"></i>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            }
+            else if (new List<string>() { "doc", "xdoc" }.Contains(ext))
+            {
+
+            }
+        }
+    }
+</div>
+
+<script type="text/javascript">
+    $(function($) {
+        $(".upload-block-@guidCode").UploadFiles({
+            url: '@Url.Action("UploadFileForItem", "Files", Model)',
+            json: @Html.Raw(ViewBag.json)
+        });
+        ShowError('@ViewBag.Error');
+    });
+</script>

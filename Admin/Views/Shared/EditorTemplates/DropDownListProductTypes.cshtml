@@ -1,0 +1,21 @@
+﻿@model Guid?
+@{
+    var list = (List<KeyValuePair<string, string>>) ViewBag.ProductTypes;
+}
+<select id="@ViewData.ModelMetadata.PropertyName" name="@ViewData.ModelMetadata.PropertyName" class="form-control">
+    <option value=""></option>
+    @if (list.Any())
+    {
+        foreach (var item in (List<KeyValuePair<string, string>>)ViewBag.ProductTypes)
+         {
+             if (Model != null && Model == Guid.Parse(item.Key))
+             {
+                 <option value="@item.Key" selected="selected">@Html.Raw(item.Value)</option>
+             }
+             else
+             {
+                 <option value="@item.Key">@Html.Raw(item.Value)</option>
+             }
+         }
+    }
+</select>

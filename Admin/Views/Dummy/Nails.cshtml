@@ -1,0 +1,34 @@
+﻿@using Admin.Models
+@model DummyModel
+@{
+    Layout = null;
+
+    var nailDesigns = Model.NailDesigns.Where(i => i != null).ToList();
+}
+
+
+
+
+@for (var i = 0; i < 10; i++)
+{
+    if (Model.NailDesigns[i] != null)
+    {
+        <div class="nail-@i">
+            <img src="@Url.Action("GetImage", "Files", new FileModel {Id = Model.NailDesigns[i].Id, AppDataDir = "NailDesign"})" alt=""/>
+        </div>
+    }
+    else
+    {
+        <div class="nail-@i">
+            <img src="~/Content/Images/nail-empty.png" alt="" />
+        </div>
+    }
+}
+
+
+
+<script type="text/javascript">
+    $(function($) {
+        Dummy.Init();
+    });
+</script>

@@ -1,0 +1,95 @@
+﻿@using Admin.Models
+@using _Data.Models
+@model Admin.Models.NailDesignModel
+@{
+    var nailDesignTypes = (List<NailDesignType>)ViewBag.NailDesignTypes;
+
+    ViewBag.Title = "Добавить новый дизайн";
+}
+
+<h2 class="page-title">@ViewBag.Title</h2>
+
+@using (Ajax.BeginForm("Create", "NailDesign", null, new AjaxOptions { UpdateTargetId = "action-body" }))
+{
+    @Html.HiddenFor(m => m.Id)
+
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col">
+            @Html.ValidationSummary()
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.Name, new { @class = "col-3 col-form-label" })
+        <div class="col">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.TimeOut, new { @class = "col-3 col-form-label" })
+        <div class="col">
+            @Html.TextBoxFor(m => m.TimeOut, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.Price, new { @class = "col-3 col-form-label" })
+        <div class="col">
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-3 col-form-label">Фотография</label>
+        <div class="col">
+            @Html.Action("Index", "Files", new FileModel { Id = Model.Id, AppDataDir = "NailDesign", ImageFixWidth = 53, ImageFixHeight = 118 })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-3 col-form-label">К каким типам относится?</label>
+        <div class="col">
+            <div class="d-inline-flex flex-column pt-2 mb-3">
+                @if (nailDesignTypes != null)
+                {
+                    foreach (var item in nailDesignTypes)
+                    {
+                        <div class="d-inline-flex align-items-center">
+                            <div class="pr-2">
+                                @if (Model.NailDesignTypes != null && Model.NailDesignTypes.Any(i => i.Id == item.Id))
+                                {
+                                    <input class="d-block" id="NailDesignTypesGuids[]" type="checkbox" name="NailDesignTypesGuids[]" checked="checked" value="@item.Id"/>
+                                }
+                                else
+                                {
+                                    <input class="d-block" id="NailDesignTypesGuids[]" type="checkbox" name="NailDesignTypesGuids[]" value="@item.Id"/>
+                                }
+
+                            </div>
+                            <div class="font-italic">@item.Name</div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group row">
+        <div class="col-3"></div>
+        <div class="col">
+            <div class="row">
+                <div class="col-auto mr-auto">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+                <div class="col-auto">
+                    @Ajax.ActionLink("Отмена", "List", "NailDesign", null, new AjaxOptions { UpdateTargetId = "action-body" }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+}

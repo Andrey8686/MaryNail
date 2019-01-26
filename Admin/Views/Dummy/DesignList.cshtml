@@ -1,0 +1,16 @@
+﻿@using Admin.Models
+@using _Data.Models
+@{
+    var designs = (List<NailDesign>)ViewBag.Design;
+    Layout = null;
+}
+
+@foreach (var item in designs)
+{
+    <div>
+        <div class="nail-@item.Id in-list" onclick="Dummy.Add('@item.Id')">
+            <img src="@Url.Action("GetImage", "Files", new FileModel {Id = item.Id, AppDataDir = "NailDesign"})" alt="" />
+            <p></p>
+        </div>
+    </div>
+}

@@ -1,0 +1,183 @@
+﻿@using Admin.Models
+@using _Data.Models
+@{
+    ViewBag.Title = "Кукла";
+    var types = (List<NailDesignType>)ViewBag.DesignTypes;
+    Layout = null;
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+
+
+
+
+
+<div class="dummy">
+    <div>
+        <div class="d-flex justify-content-between pb-3">
+            <div>
+                @Ajax.ActionLink("Снять покрытие", "Reset", "Dummy", null, new AjaxOptions { UpdateTargetId = "nails", Confirm = "Вы уверены?", HttpMethod = "post" }, new { @class = "btn btn-danger" })
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="type-list mb-3">
+            @foreach (var item in types)
+            {
+                <div>
+                    <div class="type" onclick="Dummy.GetDesignList('@item.Id')">
+                        <div class="no-image"></div>
+                        <div>
+                            <p>@item.Name</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div id="design-list">
+            @Html.Partial("DesignList")
+        </div>
+    </div>
+    <div id="design-hands">
+        <div class="drop-areas">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="mask-0"></div>
+        <div class="mask-1"></div>
+        <div class="mask-2"></div>
+        <div class="mask-3"></div>
+        <div class="mask-4"></div>
+        <div class="mask-5"></div>
+        <div class="mask-6"></div>
+        <div class="mask-7"></div>
+        <div class="mask-8"></div>
+        <div class="mask-9"></div>
+        <div id="nails">
+            @Html.Partial("Nails")
+        </div>
+        <div class="hand">
+            <img src="~/Content/Images/hand-left-bg.png" />
+            <img src="~/Content/Images/hand-left.png" />
+        </div>
+        <div class="hand">
+            <img src="~/Content/Images/hand-right-bg.png" />
+            <img src="~/Content/Images/hand-right.png" />
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+        var Dummy = {
+            Init: function() {
+                this.main = $(".dummy");
+                this.handsBlock = this.main.find("#design-hands");
+                this.nails = this.main.find("#nails");
+                this.designList = this.main.find("#design-list");
+
+
+                $(".drop-areas > div").droppable({
+                    accept: "#design-list [class*=nail], #nails [class*=nail]",
+                    drop: function(event, ui) {
+
+                        if ($(ui.draggable).hasClass("in-list")) {
+                            $.post('@Url.Action("AddNail", "Dummy")',
+                                {
+                                    Id: $(ui.draggable).attr("class").split(' ')[0].split("nail-")[1],
+                                    Index: $(".drop-areas > div").index($(this))
+                                },
+                                function(data) {
+                                    Dummy.nails.html(data);
+                                });
+                        } else {
+                            $.post('@Url.Action("ChangeNail", "Dummy")',
+                                {
+                                    Index: $(ui.draggable).attr("class").split('-')[1].split(' ')[0],
+                                    SwapIndex: $(".drop-areas > div").index($(this))
+                                },
+                                function(data) {
+                                    Dummy.nails.html(data);
+                                });
+                        }
+                    }
+                });
+
+
+                this.main.find("#design-list").droppable({
+                    accept: "#nails [class*=nail]",
+                    drop: function(event, ui) {
+                        $.post('@Url.Action("RemoveNail", "Dummy")',
+                            {
+                                Index: $("#nails [class*=nail]").index($(ui.draggable))
+                            },
+                            function(data) {
+                                Dummy.nails.html(data);
+                            });
+                    }
+                });
+
+
+                this.main.find("#design-list [class*=nail], #nails [class*=nail]").draggable({
+                    containment: Dummy.main,
+                    cursor: "move",
+                    revert: "invalid",
+                    revertDuration: 0,
+                    helper: "clone",
+                    zIndex: 100000
+                });
+
+                this.InitMask();
+            },
+            InitMask: function () {
+                this.maskList = $("[class*=mask-");
+                Dummy.MaskPos();
+                $(window).resize(function() {
+                    Dummy.MaskPos();
+                });
+            },
+            MaskPos: function () {
+                var handsBlockOffset = Dummy.handsBlock.offset();
+                for (var i = 0; i < this.maskList.length; i++) {
+                    var offset = $(this.maskList[i]).offset();
+                    var l = offset.left - handsBlockOffset.left;
+                    var t = offset.top - handsBlockOffset.top;
+
+                    if (i > 4 && i < 9) l = l - 2;
+
+                    $(this.maskList[i]).css({
+                        "background-position": "-" + l + "px -" + t + "px",
+                        "background-size": (Dummy.handsBlock.width() / 2) + "px"
+                    });
+                }
+            },
+            Add: function(id) {
+                $.post('@Url.Action("AddNail", "Dummy")',
+                    { Id: id },
+                    function(data) {
+                        Dummy.nails.html(data);
+                        Dummy.Init();
+                    });
+            },
+            GetDesignList: function(id) {
+                $.post('@Url.Action("DesignList", "Dummy")',
+                    { Id: id },
+                    function(data) {
+                        Dummy.designList.html(data);
+                        Dummy.Init();
+                    });
+            }
+        }
+</script>
