@@ -4,7 +4,7 @@
 }
 <select id="@ViewData.ModelMetadata.PropertyName" name="@ViewData.ModelMetadata.PropertyName" class="form-control">
     <option value=""></option>
-    @if (list.Any())
+    @if (list != null)
     {
         foreach (var item in (List<KeyValuePair<string, string>>)ViewBag.ProductTypes)
          {
