@@ -31,10 +31,11 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="col-4">
+                    var imgName = "/Content/AppUpload/Product/" + item.Id + ".jpg";
 
+                    <div class="col-4">
                         <a class="d-block" href="@Url.Action("Details", "MyWorks", new { id = item.Id })">
-                            <img class="img-fluid" src="@Url.Action("Index", "Image", new ImageModel { Id = item.Id, AppDataDir = "Product" })" alt="" />
+                            <img class="img-fluid" src="@imgName" alt="" />
                         </a>
 
                     </div>
