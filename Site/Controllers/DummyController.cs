@@ -16,8 +16,33 @@ namespace Site.Controllers
 
 
 
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
+
+            if (Guid.TryParse(id, out var result))
+            {
+                var dummye = db.Dummyes.Find(result);
+
+                if (dummye != null)
+                    Session["Dummy"] = new DummyModel
+                    {
+                        NailDesigns = new[]
+                        {
+                            dummye.NailDesign_h1Id,
+                            dummye.NailDesign_h2Id,
+                            dummye.NailDesign_h3Id,
+                            dummye.NailDesign_h4Id,
+                            dummye.NailDesign_h5Id,
+                            dummye.NailDesign_h6Id,
+                            dummye.NailDesign_h7Id,
+                            dummye.NailDesign_h8Id,
+                            dummye.NailDesign_h9Id,
+                            dummye.NailDesign_h10Id
+                        }
+                    };
+
+            }
+
             var model = GetDummy();
 
             var typeList = db.NailDesignTypes.ToList();

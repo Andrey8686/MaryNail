@@ -1,0 +1,49 @@
+﻿@using Site.Models
+@using _Data.Models
+@model IEnumerable<_Data.Models.Product>
+@{
+    ViewBag.Title = "Index";
+
+    var productTypes = (List<ProductType>)ViewBag.ProductTypes;
+}
+
+<h2>Index</h2>
+
+
+
+<div class="row">
+    <div class="col-4">
+        @if (productTypes.Any())
+        {
+            <ul>
+                @foreach (var item in productTypes)
+                {
+                    <li>
+                        @Html.ActionLink(item.Name + " (" + item.Products.Count + ")", "List", new {id = item.Id})
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+    <div class="col">
+        @if (Model.Any())
+        {
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-4">
+
+                        <a class="d-block" href="@Url.Action("Details", "MyWorks", new { id = item.Id })">
+                            <img class="img-fluid" src="@Url.Action("Index", "Image", new ImageModel { Id = item.Id, AppDataDir = "Product" })" alt="" />
+                        </a>
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+
+

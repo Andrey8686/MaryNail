@@ -1,0 +1,25 @@
+﻿@using Site.Models
+@model _Data.Models.Product
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col">
+        <img class="img-fluid" src="@Url.Action("Index", "Image", new ImageModel { Id = Model.Id, AppDataDir = "Product" })" alt="@Model.Name" />
+        
+        
+        @if (Model.DummyId != null)
+        {
+            <div>
+                @Html.ActionLink("Я бы сделала немного по другому...", "Index", "Dummy", new { id = Model.DummyId }, null)
+            </div>
+        }
+    </div>
+    <div class="col">
+        <h2>@Model.Name</h2>
+        @Model.Description
+    </div>
+</div>

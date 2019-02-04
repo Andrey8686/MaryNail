@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Site.Code;
+using _Data.Models;
 
 namespace Site.Models
 {
@@ -18,4 +19,5 @@ namespace Site.Models
         public Guid? DummyId { get; set; }
     }
     
+
 }

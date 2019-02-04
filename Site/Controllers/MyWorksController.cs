@@ -10,7 +10,7 @@ namespace Site.Controllers
 {
     public class MyWorksController : BaseController
     {
-        public ActionResult Index(string id)
+        public ActionResult List(string id)
         {
             List<Product> model;
 
@@ -26,8 +26,22 @@ namespace Site.Controllers
                 model = db.Products.ToList();
             }
 
+            ViewBag.ProductTypes = db.ProductTypes.Where(i => i.IsActive).ToList();
+
             return View(model);
         }
+
+        public ActionResult Details(Guid id)
+        {
+            var model = db.Products.Find(id);
+
+            return View(model);
+        }
+
+
+
+
+
 
 
 
@@ -50,5 +64,6 @@ namespace Site.Controllers
             }
             return list;
         }
+
     }
 }
