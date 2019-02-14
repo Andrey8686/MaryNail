@@ -5,14 +5,14 @@ body {
 body > div {
   position: relative;
   min-height: 100%;
-  padding: 100px 0 100px;
+  padding: 200px 0 100px;
 }
 header {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 200px;
 }
 footer {
   position: absolute;

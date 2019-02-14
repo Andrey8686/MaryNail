@@ -27,21 +27,17 @@ namespace _Data.Models
 
             Property(x => x.Id).HasColumnName("Id").IsRequired();
             Property(x => x.ProductTypeId).HasColumnName("ProductTypeId").IsRequired();
+            Property(x => x.DummyId).HasColumnName("DummyId").IsOptional();
+            Property(x => x.ServiceId).HasColumnName("ServiceId").IsRequired();
             Property(x => x.Name).HasColumnName("Name").IsRequired().HasMaxLength(100);
             Property(x => x.Description).HasColumnName("Description").IsOptional();
             Property(x => x.TimeCost).HasColumnName("TimeCost").IsRequired();
             Property(x => x.CreatedDate).HasColumnName("CreatedDate").IsRequired();
             Property(x => x.IsActive).HasColumnName("IsActive").IsRequired();
-            Property(x => x.DummyId).HasColumnName("DummyId").IsOptional();
 
             HasRequired(a => a.ProductType).WithMany(b => b.Products).HasForeignKey(c => c.ProductTypeId);
             HasOptional(a => a.Dummye).WithMany(b => b.Products).HasForeignKey(c => c.DummyId);
-            HasMany(t => t.Services).WithMany(t => t.Products).Map(m => 
-            {
-                m.ToTable("Produt_Service", schema);
-                m.MapLeftKey("ProductId");
-                m.MapRightKey("ServiceId");
-            });
+            HasRequired(a => a.Service).WithMany(b => b.Products).HasForeignKey(c => c.ServiceId);
             InitializePartial();
         }
         partial void InitializePartial();

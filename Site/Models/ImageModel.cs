@@ -11,5 +11,7 @@ namespace Site.Models
         public Guid Id { get; set; }
         public string AppDataDir { get; set; }
         public string Prefix { get; set; }
+        public string Mark { get; set; }
+        public int MarkPercent { get; set; }
     }
 }

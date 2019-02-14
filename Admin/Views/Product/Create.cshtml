@@ -2,8 +2,6 @@
 @using _Data.Models
 @model Admin.Models.ProductModel
 @{
-    var service = (List<Service>)ViewBag.Services;
-
     ViewBag.Title = "Добавить новую работу";
 }
 
@@ -17,6 +15,13 @@
     <div class="row">
         <div class="col">
             @Html.ValidationSummary()
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.ServiceId, new { @class = "col-3 col-form-label" })
+        <div class="col">
+            @Html.DropDownListFor(m => m.ServiceId, new SelectList((List<Service>)ViewBag.Services, "Id", "Name"), new { @class = "form-control" })
         </div>
     </div>
 
@@ -59,21 +64,6 @@
         <label class="col-3 col-form-label">Кукла</label>
         <div class="col">
             @Html.Action("Index", "Dummy")
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-3 col-form-label">Услуги</label>
-        <div class="col">
-            <div class="d-inline-flex flex-column">
-                @foreach (var item in service.Select((value, i) => new { i, value }))
-                {
-                    <div class="d-inline-flex align-items-center">
-                        <div><input id="ServicesGuids[]" type="checkbox" name="ServicesGuids[]" value="@item.value.Id" /></div>
-                        <div>@item.value.Name</div>
-                    </div>
-                }
-            </div>
         </div>
     </div>
 

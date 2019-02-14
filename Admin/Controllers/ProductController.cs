@@ -57,6 +57,8 @@ namespace Admin.Controllers
 
         public ActionResult Create()
         {
+            Session["Dummy"] = null;
+
             var model = new ProductModel();
 
             Binder.Bind(new Product(), ref model);
@@ -70,7 +72,7 @@ namespace Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductRequestModel request)
+        public ActionResult Create(ProductModel request)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +81,7 @@ namespace Admin.Controllers
                     var model = new Product
                     {
                         Id = request.Id,
+                        ServiceId = request.ServiceId,
                         ProductTypeId = request.ProductTypeId,
                         Name = request.Name,
                         Description = request.Description,
@@ -86,33 +89,32 @@ namespace Admin.Controllers
                         IsActive = true
                     };
 
-                    var dummy = (DummyModel)Session["Dummy"];
-
-                    if (dummy.NailDesigns.Any(i => i != null))
+                    if (Session["Dummy"] != null)
                     {
-                        var newDummy = new Dummye();
-                        db.Dummyes.Add(newDummy);
-                        model.Dummye = newDummy;
-                        model.DummyId = newDummy.Id;
+                        var dummy = (DummyModel)Session["Dummy"];
 
-                        model.Dummye.h1Id = dummy.NailDesigns[0]?.Id;
-                        model.Dummye.h2Id = dummy.NailDesigns[1]?.Id;
-                        model.Dummye.h3Id = dummy.NailDesigns[2]?.Id;
-                        model.Dummye.h4Id = dummy.NailDesigns[3]?.Id;
-                        model.Dummye.h5Id = dummy.NailDesigns[4]?.Id;
-                        model.Dummye.h6Id = dummy.NailDesigns[5]?.Id;
-                        model.Dummye.h7Id = dummy.NailDesigns[6]?.Id;
-                        model.Dummye.h8Id = dummy.NailDesigns[7]?.Id;
-                        model.Dummye.h9Id = dummy.NailDesigns[8]?.Id;
-                        model.Dummye.h10Id = dummy.NailDesigns[9]?.Id;
+                        if (dummy.NailDesigns.Any(i => i != null))
+                        {
+                            var newDummy = new Dummye();
+                            db.Dummyes.Add(newDummy);
+                            model.Dummye = newDummy;
+                            model.DummyId = newDummy.Id;
+                            model.Dummye.ServiceId = request.ServiceId;
+
+                            model.Dummye.h1Id = dummy.NailDesigns[0]?.Id;
+                            model.Dummye.h2Id = dummy.NailDesigns[1]?.Id;
+                            model.Dummye.h3Id = dummy.NailDesigns[2]?.Id;
+                            model.Dummye.h4Id = dummy.NailDesigns[3]?.Id;
+                            model.Dummye.h5Id = dummy.NailDesigns[4]?.Id;
+                            model.Dummye.h6Id = dummy.NailDesigns[5]?.Id;
+                            model.Dummye.h7Id = dummy.NailDesigns[6]?.Id;
+                            model.Dummye.h8Id = dummy.NailDesigns[7]?.Id;
+                            model.Dummye.h9Id = dummy.NailDesigns[8]?.Id;
+                            model.Dummye.h10Id = dummy.NailDesigns[9]?.Id;
+                        }
                     }
-
-                    var services = db.Services.Where(i => request.ServicesGuids.Contains(i.Id)).ToList();
                     
-                    for (var i = services.Count - 1; i >= 0; i--)
-                    {
-                        model.Services.Add(services[i]);
-                    }
+                    
 
                     db.Products.Add(model);
                     
@@ -169,15 +171,14 @@ namespace Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProductRequestModel request)
+        public ActionResult Edit(ProductModel request)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     var model = db.Products.Find(request.Id);
-
-
+                    
                     var dummy = (DummyModel)Session["Dummy"];
                     
                     if (dummy.NailDesigns.Any(i => i != null))
@@ -189,7 +190,9 @@ namespace Admin.Controllers
                             model.Dummye = newDummy;
                             model.DummyId = newDummy.Id;
                         }
-                        
+
+                        model.Dummye.ServiceId = request.ServiceId;
+
                         model.Dummye.h1Id = dummy.NailDesigns[0]?.Id;
                         model.Dummye.h2Id = dummy.NailDesigns[1]?.Id;
                         model.Dummye.h3Id = dummy.NailDesigns[2]?.Id;
@@ -211,20 +214,12 @@ namespace Admin.Controllers
                         
                     }
                     
-
-                    
+                    model.ServiceId = request.ServiceId;
                     model.ProductTypeId = request.ProductTypeId;
                     model.Name = request.Name;
                     model.Description = request.Description;
                     model.TimeCost = TimeUtils.TimeToUt(request.TimeCost);
-
-                    var services = db.Services.Where(i => request.ServicesGuids.Contains(i.Id)).ToList();
-                    model.Services.Clear();
-                    for (var i = services.Count - 1; i >= 0; i--)
-                    {
-                        model.Services.Add(services[i]);
-                    }
-
+                    
                     db.SaveChanges();
 
                     return RedirectToAction("List");

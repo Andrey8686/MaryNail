@@ -27,12 +27,14 @@ namespace _Data.Models
 
             Property(x => x.Id).HasColumnName("Id").IsRequired().HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(x => x.OrderId).HasColumnName("OrderId").IsRequired();
-            Property(x => x.ProdutId).HasColumnName("ProdutId").IsRequired();
-            Property(x => x.ServiceId).HasColumnName("ServiceId").IsOptional();
+            Property(x => x.ServiceId).HasColumnName("ServiceId").IsRequired();
+            Property(x => x.ProductId).HasColumnName("ProductId").IsOptional();
+            Property(x => x.DummyId).HasColumnName("DummyId").IsOptional();
 
             HasRequired(a => a.Order).WithMany(b => b.OrderItems).HasForeignKey(c => c.OrderId);
-            HasRequired(a => a.Product).WithMany(b => b.OrderItems).HasForeignKey(c => c.ProdutId);
-            HasOptional(a => a.Service).WithMany(b => b.OrderItems).HasForeignKey(c => c.ServiceId);
+            HasRequired(a => a.Service).WithMany(b => b.OrderItems).HasForeignKey(c => c.ServiceId);
+            HasOptional(a => a.Product).WithMany(b => b.OrderItems).HasForeignKey(c => c.ProductId);
+            HasOptional(a => a.Dummye).WithMany(b => b.OrderItems).HasForeignKey(c => c.DummyId);
             InitializePartial();
         }
         partial void InitializePartial();

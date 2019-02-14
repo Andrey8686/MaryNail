@@ -22,9 +22,11 @@ namespace _Data.Models
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public Guid ProdutId { get; set; }
-        public Guid? ServiceId { get; set; }
+        public Guid ServiceId { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? DummyId { get; set; }
 
+        public virtual Dummye Dummye { get; set; }
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
         public virtual Service Service { get; set; }

@@ -26,6 +26,7 @@ namespace _Data.Models
         public bool IsActive { get; set; }
         public int OrderBy { get; set; }
 
+        public virtual ICollection<Dummye> Dummyes { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<Product> Products { get; set; }
 
@@ -35,6 +36,7 @@ namespace _Data.Models
             TimeCost = 0;
             IsActive = true;
             OrderBy = 0;
+            Dummyes = new List<Dummye>();
             OrderItems = new List<OrderItem>();
             Products = new List<Product>();
             InitializePartial();

@@ -26,7 +26,8 @@ namespace _Data.Models
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName("Id").IsRequired();
-            Property(x => x.AspNetUsersId).HasColumnName("AspNetUsersId").IsOptional().HasMaxLength(128);
+            Property(x => x.AspNetUserId).HasColumnName("AspNetUserId").IsOptional().HasMaxLength(128);
+            Property(x => x.ServiceId).HasColumnName("ServiceId").IsRequired();
             Property(x => x.Name).HasColumnName("Name").IsOptional().HasMaxLength(100);
             Property(x => x.h1Id).HasColumnName("h1Id").IsOptional();
             Property(x => x.h2Id).HasColumnName("h2Id").IsOptional();
@@ -39,7 +40,8 @@ namespace _Data.Models
             Property(x => x.h9Id).HasColumnName("h9Id").IsOptional();
             Property(x => x.h10Id).HasColumnName("h10Id").IsOptional();
 
-            HasOptional(a => a.AspNetUser).WithMany(b => b.Dummyes).HasForeignKey(c => c.AspNetUsersId);
+            HasOptional(a => a.AspNetUser).WithMany(b => b.Dummyes).HasForeignKey(c => c.AspNetUserId);
+            HasRequired(a => a.Service).WithMany(b => b.Dummyes).HasForeignKey(c => c.ServiceId);
             HasOptional(a => a.NailDesign_h1Id).WithMany(b => b.Dummyes_h1Id).HasForeignKey(c => c.h1Id);
             HasOptional(a => a.NailDesign_h2Id).WithMany(b => b.Dummyes_h2Id).HasForeignKey(c => c.h2Id);
             HasOptional(a => a.NailDesign_h3Id).WithMany(b => b.Dummyes_h3Id).HasForeignKey(c => c.h3Id);

@@ -31,7 +31,6 @@ namespace _Data.Models
         IDbSet<Order> Orders { get; set; }
         IDbSet<OrderItem> OrderItems { get; set; }
         IDbSet<Product> Products { get; set; }
-        IDbSet<ProductPhoto> ProductPhotoes { get; set; }
         IDbSet<ProductType> ProductTypes { get; set; }
         IDbSet<Service> Services { get; set; }
         IDbSet<sysdiagram> sysdiagrams { get; set; }

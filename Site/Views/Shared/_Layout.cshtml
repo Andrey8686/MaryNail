@@ -27,13 +27,19 @@
                                         @Html.ActionLink(" ", "Index", "Home", null, new { @class = "nav-link icon-home" })
                                     </li>
                                     <li class="nav-item">
-                                        @Html.ActionLink("Кукла", "Index", "Dummy", null, new { @class = "nav-link" })
-                                    </li>
-                                    <li class="nav-item">
                                         @Html.ActionLink("Мои работы", "List", "MyWorks", null, new { @class = "nav-link" })
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                        @Html.ActionLink("Новости", "", "", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Статьи", "", "", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Контакты", "", "", null, new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        @Html.ActionLink("Кукла", "Index", "Dummy", null, new { @class = "nav-link" })
                                     </li>
                                 </ul>
                             </div>
@@ -50,19 +56,23 @@
                             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                                     <li class="nav-item">
+                                        @Html.ActionLink("Войти", "", "", new { @class = "nav-link" })
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="nav-link">или</span>
+                                        
+                                    </li>
+                                    <li class="nav-item">
                                         @Html.ActionLink("Зарегистрироваться", "", "", new { @class = "nav-link" })
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Disabled</a>
                                     </li>
                                 </ul>
                             </div>
                         </nav>
 
                     </div>
+                </div>
+                <div class="p-5">
+                    @Html.ActionLink("З.А.П.И.С.А.Т.Ь.С.Я", "", "", new { @class = "d-table btn btn-success btn-lg m-auto" })
                 </div>
             </div>
         </header>

@@ -21,7 +21,8 @@ namespace _Data.Models
     public partial class Dummye
     {
         public Guid Id { get; set; }
-        public string AspNetUsersId { get; set; }
+        public string AspNetUserId { get; set; }
+        public Guid ServiceId { get; set; }
         public string Name { get; set; }
         public Guid? h1Id { get; set; }
         public Guid? h2Id { get; set; }
@@ -34,6 +35,7 @@ namespace _Data.Models
         public Guid? h9Id { get; set; }
         public Guid? h10Id { get; set; }
 
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<Product> Products { get; set; }
 
         public virtual AspNetUser AspNetUser { get; set; }
@@ -47,10 +49,12 @@ namespace _Data.Models
         public virtual NailDesign NailDesign_h7Id { get; set; }
         public virtual NailDesign NailDesign_h8Id { get; set; }
         public virtual NailDesign NailDesign_h9Id { get; set; }
+        public virtual Service Service { get; set; }
 
         public Dummye()
         {
             Id = System.Guid.NewGuid();
+            OrderItems = new List<OrderItem>();
             Products = new List<Product>();
             InitializePartial();
         }

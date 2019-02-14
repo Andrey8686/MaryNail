@@ -31,7 +31,6 @@ namespace _Data.Models
         public IDbSet<Order> Orders { get; set; }
         public IDbSet<OrderItem> OrderItems { get; set; }
         public IDbSet<Product> Products { get; set; }
-        public IDbSet<ProductPhoto> ProductPhotoes { get; set; }
         public IDbSet<ProductType> ProductTypes { get; set; }
         public IDbSet<Service> Services { get; set; }
         public IDbSet<sysdiagram> sysdiagrams { get; set; }
@@ -72,7 +71,6 @@ namespace _Data.Models
             modelBuilder.Configurations.Add(new OrderMap());
             modelBuilder.Configurations.Add(new OrderItemMap());
             modelBuilder.Configurations.Add(new ProductMap());
-            modelBuilder.Configurations.Add(new ProductPhotoMap());
             modelBuilder.Configurations.Add(new ProductTypeMap());
             modelBuilder.Configurations.Add(new ServiceMap());
             modelBuilder.Configurations.Add(new sysdiagramMap());
@@ -93,7 +91,6 @@ namespace _Data.Models
             modelBuilder.Configurations.Add(new OrderMap(schema));
             modelBuilder.Configurations.Add(new OrderItemMap(schema));
             modelBuilder.Configurations.Add(new ProductMap(schema));
-            modelBuilder.Configurations.Add(new ProductPhotoMap(schema));
             modelBuilder.Configurations.Add(new ProductTypeMap(schema));
             modelBuilder.Configurations.Add(new ServiceMap(schema));
             modelBuilder.Configurations.Add(new sysdiagramMap(schema));

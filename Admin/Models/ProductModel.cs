@@ -13,6 +13,9 @@ namespace Admin.Models
     {
         public Guid Id { get; set; }
 
+        [Display(Name = "Тип работы")]
+        public Guid ServiceId { get; set; }
+
         [Display(Name = "Родительская категория")]
         [UIHint("DropDownListProductTypes")]
         public Guid ProductTypeId { get; set; }
@@ -32,21 +35,5 @@ namespace Admin.Models
 
         public bool IsActive { get; set; }
 
-
-        //public virtual ICollection<OrderItem> OrderItems { get; set; }
-        //public virtual ICollection<ProductPhoto> ProductPhotoes { get; set; }
-        public ICollection<Service> Services { get; set; }
-
-        //public virtual ProductType ProductType { get; set; }
-
-    }
-
-
-
-
-
-    public class ProductRequestModel : ProductModel
-    {
-        public List<Guid> ServicesGuids { get; set; }
     }
 }

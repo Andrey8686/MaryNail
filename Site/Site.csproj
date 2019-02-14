@@ -220,6 +220,7 @@
     <Compile Include="Code\Utils\Binder.cs" />
     <Compile Include="Code\Utils\TimeUtils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\DummyController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -230,6 +231,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BookingModels.cs" />
     <Compile Include="Models\DummyModel.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\FilesModels.cs" />
@@ -251,6 +253,7 @@
     <Content Include="Content\Images\hand-left.png" />
     <Content Include="Content\Images\hand-right-bg.png" />
     <Content Include="Content\Images\hand-right.png" />
+    <Content Include="Content\Images\mark.png" />
     <Content Include="Content\Images\nail-empty.png" />
     <Content Include="Content\Site.css">
       <DependentUpon>Site.less</DependentUpon>
@@ -372,6 +375,11 @@
     <Content Include="Views\Dummy\DesignList.cshtml" />
     <Content Include="Views\MyWorks\List.cshtml" />
     <Content Include="Views\MyWorks\Details.cshtml" />
+    <Content Include="Views\Booking\Index.cshtml" />
+    <Content Include="Views\Booking\AddProduct.cshtml" />
+    <Content Include="Views\Booking\ChoiceTime.cshtml" />
+    <Content Include="Views\Booking\AddService.cshtml" />
+    <Content Include="Views\Booking\AddDummy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

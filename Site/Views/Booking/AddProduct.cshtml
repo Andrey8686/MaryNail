@@ -1,0 +1,24 @@
+﻿@using Newtonsoft.Json
+@using Site.Models
+@model Guid
+@{
+    Layout = null;
+
+    var booking = (List<BookingModels>)Session["Booking"] ?? new List<BookingModels>();
+}
+
+<div class="d-flex justify-content-between">
+    <div>
+        @if (booking.Any(i => i.ProductId == Model))
+        {
+            @Ajax.ActionLink("Я передумала...", "RemoveFromBooking", "Booking", new { id = Model }, new AjaxOptions { UpdateTargetId = "booking_block" }, new { @class = "btn btn-light btn-sm" })
+        }
+        else
+        {
+            @Ajax.ActionLink("Добавить к записи...", "AddProduct", "Booking", new { id = Model }, new AjaxOptions { UpdateTargetId = "booking_block", HttpMethod = "post"}, new { @class = "btn btn-success btn-sm" })
+        }
+    </div>
+    <div>
+        
+    </div>
+</div>

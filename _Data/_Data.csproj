@@ -146,12 +146,6 @@
     <Compile Include="DbModels\ProductMap.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbModels\ProductPhoto.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DbModels\ProductPhotoMap.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="DbModels\ProductType.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

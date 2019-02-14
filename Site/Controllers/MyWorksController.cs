@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Site.Code;
+using Site.Models;
 using _Data.Models;
 
 namespace Site.Controllers
@@ -40,7 +42,11 @@ namespace Site.Controllers
 
 
 
-
+        public ActionResult Image(Guid id)
+        {
+            var m = new ImageController();
+            return m.Mark(new ImageModel { Id = id, AppDataDir = "Product", Mark = Server.MapPath("~/Content/Images/mark.png"), MarkPercent = 50});
+        }
 
 
 

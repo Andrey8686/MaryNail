@@ -2,8 +2,6 @@
 @using _Data.Models
 @model Admin.Models.ProductModel
 @{
-    var service = (List<Service>)ViewBag.Services;
-
     ViewBag.Title = "Редактирование работы - " + Model.Name;
 }
 
@@ -17,6 +15,13 @@
     <div class="row">
         <div class="col">
             @Html.ValidationSummary()
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(m => m.ServiceId, new { @class = "col-3 col-form-label" })
+        <div class="col">
+            @Html.DropDownListFor(m => m.ServiceId, new SelectList((List<Service>)ViewBag.Services, "Id", "Name"), new { @class = "form-control" })
         </div>
     </div>
 
@@ -54,7 +59,7 @@
             @Html.Action("Index", "Files", new FileModel { Id = Model.Id, AppDataDir = "Product", ImageFixWidth = 500, ImageFixHeight = 500 })
         </div>
     </div>
-    
+
     <div class="form-group row">
         <label class="col-3 col-form-label">Кукла</label>
         <div class="col">
@@ -62,31 +67,6 @@
         </div>
     </div>
     
-    <div class="form-group row">
-        <label class="col-3 col-form-label">Услуги</label>
-        <div class="col">
-            <div class="d-inline-flex flex-column pt-2 mb-3">
-                @foreach (var item in service.Select((value, i) => new { i, value }))
-                {
-                    <div class="d-inline-flex align-items-center">
-                        <div class="pr-2">
-                            @if (Model.Services.Any(i => i.Id == item.value.Id))
-                            {
-                                <input class="d-block" id="ServicesGuids[]" type="checkbox" name="ServicesGuids[]" checked="checked" value="@item.value.Id" />
-                            }
-                            else
-                            {
-                                <input class="d-block" id="ServicesGuids[]" type="checkbox" name="ServicesGuids[]" value="@item.value.Id" />
-                            }
-
-                        </div>
-                        <div class="font-italic">@item.value.Name</div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-
     <div class="form-group row">
         <div class="col-3"></div>
         <div class="col">
